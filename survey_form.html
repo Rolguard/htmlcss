@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generic Online Business Survey</title>
+    <style>
+        /* Going to practice using CSS Flexbox, should make centering &
+        position items easier */
+
+        /* Using relative % for height means the height of body and html will need to
+            reference a parent, body --> 100% of html, html --> 100% of viewport */
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+        body {
+            font-family: Poppins, Arial, sans-serif;
+            /* If font-size isn't specified, default root font-size is 16px */
+            font-size: 16px;
+            color: blanchedalmond;
+        }
+        html {
+            background: linear-gradient(115deg, 
+                            rgba(58, 58, 158, 0.8), 
+                            rgba(136, 136, 206, 0.7)),
+                        url("website_images/business.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .flex-container {
+            /* justify-content aligns items in main-axis (column) ,
+            align-items in secondary/cross axis (row) 
+            align-items applies to every single-line container
+            align-content applies to the overall whole container
+            */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #description {
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+            margin-top: 0;
+        }
+        #survey-form {
+            background-color: rgba(27, 27, 50, 0.8);
+            padding: 2em 1.5em;
+            align-items: flex-start;
+        }
+        .form-group {
+            /* Used for formatting label and text input from user */
+            margin-bottom: 2em;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .form-input {
+            border-width: 0.1em;
+            border-style: solid;
+            border-color: lightgrey;
+            border-radius: 0.2em;
+            font-family: inherit;
+            font-size: inherit;
+        }
+        .form-input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2em rgba(0, 123, 255, 0.25);
+        }
+        .form-select {
+            padding-bottom: 0.5em;
+        }
+        #text-area-feedback {
+            width: 100%;
+        }
+        #submit {
+            background-color: #37af65;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            padding: 0.5em;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<!-- For css styling of form, website used form-group to style (position) label + input
+    Used form-control to style input individually, e.g. when hovered over (:focus) gives blue border
+    size of input element itself, border-->
+
+<body>
+    <div id="bg"></div>
+    <div class="flex-container">
+    <h1 id="title">Generic Online Business Survey</h1>
+    <p id="description">Thanks for taking time to help improve our online platform.</p>
+    <form id="survey-form" class="flex-container">
+        <div class="form-group">
+            <!-- for = Specifies id of input for label to be bound to-->
+            <label id="name-label" for="name">Name</label>
+
+            <!-- id - For CSS Styling, name = Used as an identifier when
+            information is given to a server from the form-->
+            <input type="text" id="name" name="-name" class="form-input" placeholder="Enter your name" 
+             required>
+        </div>
+
+        <div class="form-group">
+            <label id="email-label" for="email">Email</label>
+            <input type="email" id="email" name="person-email" class="form-input"
+            placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+            <label id="number-label" for="age">Age (optional)</label>
+            <input type="number" id="number" name="person-age" class="form-input"
+            placeholder="Age" min="1" max="110">
+        </div>
+
+        <div class="form-group">
+            <label for="current-role">Which option best describes your current role?</label>
+            <select id="dropdown" name="current-role" class="form-input" required>
+                <option value="" disabled selected style="color:grey">
+                    Select your current role</option>
+                <option value="student">Student</option>
+                <option value="casual">Casual</option>
+                <option value="part-time">Part-time</option>
+                <option value="full-time">Full-time</option>
+                <option value="contractor">Independent Contractor</option>
+                <option value="preferNo">Prefer not to say</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+
+        <!-- Flex container formatting works as a parent/child relationship
+             Flex container = Parent (HTML Body div), Flex item = Child (form)
+             This means the title, p tag and form are aligned vertically in this case
+
+             The form itself also is a flex container (flex-direction: column;)
+             Parent (flex container) = Form, Child (flex items) = Divs 
+             This means all the divs are aligned vertically
+
+             NOTE: Descendants of a flex container beyond the children are NOT part of flex layout
+             and will not accept flex properties.
+
+             This means the radio buttons and labels in the div by themselves will not inherit 
+             the display: flex or flex-column property and will not be aligned vertically. 
+             In this case, they go to default formatting
+             which I believe is display: inline (not sure) and they align horizontally
+
+             The reason adding divs works in aligning each radio button option with its assigned label
+             vertically is because adding divs creates a line break 
+             (meaning each div starts on a new line).
+             Each of the elements in the div have default formatting 
+             and thus are aligned horizontally.
+
+            -->
+
+        <div class="form-group">
+            <!-- Using a p tag automatically creates a margin, use <span> or <label> for no margin-->
+            <label>Would you recommend our product to any of your friends?</label>
+
+            <div class="form-select">
+                <input type="radio" name="recommend-response" value="definitely">
+                <label for="definitely">Definitely</label>
+            </div>
+
+            <div class="form-select">
+                <input type="radio" name="recommend-response" value="maybe">
+                <label for="maybe">Maybe</label>
+            </div>
+            
+            <div class="form-select">
+                <input type="radio" name="recommend-response" value="not-sure">
+                <label for="not-sure">Not sure</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Which of these products did you like?</label>
+            <div class="form-select">
+                <input type="checkbox" id="product-1" name="products" value="product-1">
+                <label for="product-1">Product 1</label>
+            </div>
+
+            <div class="form-select">
+                <input type="checkbox" id="product-2" name="products" value="product-2">
+                <label for="product-2">Product 2</label>
+            </div>
+
+            <div class="form-select">
+                <input type="checkbox" id="product-3" name="products" value="product-3">
+                <label for="product-3">Product 3</label>
+            </div>
+
+            <div class="form-select">
+                <input type="checkbox" id="product-4" name="products" value="product-4">
+                <label for="product-4">Product 4</label>
+            </div>
+
+            <div class="form-select">
+                <input type="checkbox" id="product-5" name="products" value="product-5">
+                <label for="product-5">Product 5</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="text-area-feedback">Please leave any additional feedback here:</label>
+            <textarea id="text-area-feedback" name="additional-feedback" class="form-input"
+            maxlength="200" rows="5" cols="40"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="submit">Submit</button>
+        </div>
+    </form>
+    </div>
+</body>
+
+</html>

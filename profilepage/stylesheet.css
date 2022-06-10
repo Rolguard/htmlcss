@@ -23,13 +23,11 @@ h2 {
     font-family: 'Poppins', sans-serif;
 }
 
-hr {
-    margin: 40px 0px;
-}
-
 .nav-container {
     background-color: var(--light-salmon);
     height: 5rem;
+    position: sticky;
+    top: 0;
 }
 
 .nav-container ul {
@@ -139,4 +137,24 @@ hr {
 
 .recommend-txt p:nth-child(2) {
     justify-self: flex-end;
+}
+
+#last-hr {
+    margin-top: 40px;
+}
+
+footer {
+    height: 5rem;
+    background-color: var(--space-cadet);
+    display: flex;
+    justify-content: center;
+}
+
+footer p {
+    padding: 2rem 0rem;
+    color: #fff;
+}
+
+footer a {
+    color: #fff;
 }
